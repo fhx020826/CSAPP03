@@ -1,0 +1,12 @@
+#!/bin/sh  
+if [ $# != 1 ] ; then
+echo "usage: if you want compile program file prog.s, just type command as:"
+echo "./mak32 prog"
+echo " '.s' is NOT necessay!"
+exit 1;
+fi 
+filename=${1%.s}
+echo ...compling $filename.s
+as  --32 -g -o $filename.o   $filename.s
+ld -m elf_i386  -dynamic-linker /lib/ld-linux.so.2 -lc  -o $filename $filename.o
+echo ...done!
